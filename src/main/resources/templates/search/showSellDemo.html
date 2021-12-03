@@ -16,21 +16,18 @@
         function drawVisualization() {
             console.log(real_data);
 
-
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Year');
-            data.addColumn('number', 'Views');
+            data.addColumn('string', '태그');
+            data.addColumn('number', '누적판매량');
 
-            //{"1인"="0", "4인"="1", "가을"="0", "거실"="0", "겨울"="0", "봄"="0", "여름"="0", "침실"="1"};
-            var a = real_data.replaceAll("=", ":");
+            // var a = real_data.replaceAll("=", ":");
             console.log(a);
-            var s = {"1인":123, "4인":15, "가을":100, "거실":230, "겨울":560, "봄":10, "여름":20, "침실":111};
             Object.keys(real_data).forEach(function(key) {
                 //data.addRow([ "1인", "123" ]);
             });
             // JSON.parse(JSON.stringify(real_data))
             var options = {
-                title : '누적 판매량 상위 5, 태그의 개별 판매량 ',
+                title : '태그의 개별 누적 판매량 ',
                 vAxis: {title: '판매량'},
                 hAxis: {title: '태그'},
                 seriesType: 'bars',

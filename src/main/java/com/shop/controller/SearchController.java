@@ -1,5 +1,7 @@
 package com.shop.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.dto.ItemSearchDto;
 import com.shop.dto.MainItemDto;
 import com.shop.entity.Tag;
@@ -7,7 +9,6 @@ import com.shop.service.ItemService;
 import com.shop.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -53,7 +54,7 @@ public class SearchController {
     }
 
     @GetMapping(value = "/detailSearch/admin/showTagSell")
-    public String showTagSell(Model model){
+    public String showTagSell(Model model) throws JsonProcessingException {
         Map<String, Integer> graphData = new TreeMap<>();
         List<Tag> tags = tagService.getTagList();
 
@@ -63,20 +64,34 @@ public class SearchController {
         convertMapToJson(graphData);
         log.error(graphData.toString());
         model.addAttribute("chartData", graphData);
-        System.out.println(tags);
-        return "search/showSell";
+        return "search/showSellDemo";
     }
-    public JSONObject convertMapToJson(Map<String, Integer> map) {
-
-        JSONObject json = new JSONObject();
+//    public JSONObject convertMapToJson(Map<String, Integer> map) {
+//
+//        JSONObject json = new JSONObject();
+//        String key = "";
+//        Object value = null;
+//        for(Map.Entry<String, Integer> entry : map.entrySet()) {
+//            key = entry.getKey();
+//            value = entry.getValue();
+//            json.put(key,value);
+//        }
+//        System.out.println("맵에 저장된 키들의 집합 : " + json.keySet());
+//
+//        return json;
+//    }
+    public ObjectMapper convertMapToJson(Map<String, Integer> map) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
         String key = "";
         Object value = null;
-        for(Map.Entry<String, Integer> entry : map.entrySet()) {
+        for (Map.Entry<String, Integer> entry : map.entrySet()){
             key = entry.getKey();
             value = entry.getValue();
-            json.put(key, value);
+            objectMapper.writeValueAsString(key);
+            objectMapper.writeValueAsString(value);
         }
-        return json;
+//        System.out.println("맵에 저장된 집합 : " + objectMapper.readValueA);
+        return objectMapper;
     }
 
 

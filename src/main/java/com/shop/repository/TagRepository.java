@@ -13,6 +13,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
             "order by t.totalSell desc")
      List<Tag> findByOrderBy( );
 
-
+     Tag findByTagNm(String tagNm);
 
 }
