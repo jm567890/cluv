@@ -27,9 +27,6 @@ import java.util.TreeMap;
 @Slf4j
 public class SearchController {
 
-//    @Autowired
-//    private TagDto tagDto;
-
     private final ItemService itemService;
     private final TagService tagService;
 
@@ -61,37 +58,18 @@ public class SearchController {
         for (Tag t : tags) {
             graphData.put(t.getTagNm(), t.getTotalSell());
         }
-        convertMapToJson(graphData);
-        log.error(graphData.toString());
-        model.addAttribute("chartData", graphData);
+
+        String json = convertMapToJson(graphData);
+
+        model.addAttribute("chartData", json);
+
         return "search/showSellDemo";
     }
-//    public JSONObject convertMapToJson(Map<String, Integer> map) {
-//
-//        JSONObject json = new JSONObject();
-//        String key = "";
-//        Object value = null;
-//        for(Map.Entry<String, Integer> entry : map.entrySet()) {
-//            key = entry.getKey();
-//            value = entry.getValue();
-//            json.put(key,value);
-//        }
-//        System.out.println("맵에 저장된 키들의 집합 : " + json.keySet());
-//
-//        return json;
-//    }
-    public ObjectMapper convertMapToJson(Map<String, Integer> map) throws JsonProcessingException {
+
+    public String convertMapToJson(Map<String, Integer> map) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String key = "";
-        Object value = null;
-        for (Map.Entry<String, Integer> entry : map.entrySet()){
-            key = entry.getKey();
-            value = entry.getValue();
-            objectMapper.writeValueAsString(key);
-            objectMapper.writeValueAsString(value);
-        }
-//        System.out.println("맵에 저장된 집합 : " + objectMapper.readValueA);
-        return objectMapper;
+
+        return objectMapper.writeValueAsString(map);
     }
 
 

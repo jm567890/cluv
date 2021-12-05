@@ -123,9 +123,10 @@ public class ItemController {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         model.addAttribute("item", itemFormDto);
         return "item/itemDtl";
-//        return "item/itemDtlAjax";
+//        return "item/itemDtlAjax";  //과제
     }
 
+    //과제
 //    @GetMapping(value = "/item/{itemId}/api")
 //    public @ResponseBody
 //    ResponseEntity itemDtlAjax(@PathVariable("itemId") Long itemId) {
